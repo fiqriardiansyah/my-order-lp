@@ -59,12 +59,12 @@ export default function Nav({ lang, setLang }: NavProps) {
           >
             {lang === 'id' ? 'ID' : 'EN'}
           </button>
-          <a href="#" style={{ fontSize: 14, fontWeight: 500, color: 'var(--fg-muted)' }} className="hide-on-mobile">
+          <a href="/signin" style={{ fontSize: 14, fontWeight: 500, color: 'var(--fg-muted)' }} className="hide-on-mobile">
             {lang === 'id' ? 'Masuk' : 'Sign in'}
           </a>
-          <button className="btn btn-primary">
+          <a href="/signup" className="btn btn-primary">
             {lang === 'id' ? 'Mulai Gratis' : 'Start Free'}
-          </button>
+          </a>
         </div>
       </div>
     </header>
