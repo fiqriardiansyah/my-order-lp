@@ -372,3 +372,8 @@ section.section {
   .footer-grid { grid-template-columns: 1fr !important; }
   .hide-on-mobile { display: none !important; }
 }
+
+@media (max-width: 768px) {
+  .signup-grid { grid-template-columns: 1fr !important; }
+  .signup-panel-right { display: none !important; }
+}

@@ -37,10 +37,10 @@ export default function FinalCTA({ lang }: FinalCTAProps) {
               </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'stretch' }}>
-              <button className="btn btn-lg" style={{ background: '#fff', color: 'var(--brand)', padding: '18px 32px', fontSize: 16 }}>
+              <a href="/signup" className="btn btn-lg" style={{ background: '#fff', color: 'var(--brand)', padding: '18px 32px', fontSize: 16 }}>
                 {lang === 'id' ? 'Mulai Gratis Sekarang' : 'Start Free Now'}
                 <ArrowRight size={16} />
-              </button>
+              </a>
               <button className="btn btn-lg" style={{ background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.4)', padding: '18px 32px' }}>
                 {lang === 'id' ? 'Booking Demo' : 'Book a Demo'}
               </button>

@@ -41,10 +41,10 @@ export default function Hero({ lang }: HeroProps) {
                 : 'QR menu for guests, real-time dashboard for staff. One app for tables, orders, kitchen and cashier — set up in under 10 minutes.'}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 32, justifyContent: 'center' }}>
-              <button className="btn btn-primary btn-lg">
+              <a href="/signup" className="btn btn-primary btn-lg">
                 {lang === 'id' ? 'Coba Gratis 14 Hari' : 'Try Free for 14 Days'}
                 <ArrowRight size={16} />
-              </button>
+              </a>
               <button className="btn btn-secondary btn-lg">
                 <Play size={14} />
                 {lang === 'id' ? 'Lihat Demo' : 'Watch Demo'}
