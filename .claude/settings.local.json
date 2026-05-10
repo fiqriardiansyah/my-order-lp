@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($response = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing; $response.Content | Select-String -Pattern \"Kasigo\" | Select-Object -First 5)",
+      "PowerShell($css = Invoke-WebRequest -Uri \"http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0wbwd_e._.css\" -UseBasicParsing 2>$null; if \\($css\\) { $css.Content | Select-String \"brand|font-sans|kasigo\" | Select-Object -First 10 } else { \"CSS not found\" })",
+      "Bash(powershell *)",
+      "Bash(taskkill /PID 41188 /F)",
+      "PowerShell(Stop-Process *)",
+      "Bash(npm run *)",
+      "Bash(git -C \"D:\\\\my-order-lp\" status)",
+      "Bash(git -C \"D:\\\\my-order-lp\" diff)",
+      "Bash(git *)"
+    ]
+  }
+}
