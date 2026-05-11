@@ -7,6 +7,25 @@ function getDashboardUrl(slug: string): string {
   return template.replace("{slug}", slug);
 }
 
+function redirectToDashboard(slug: string, access_token: string, refresh_token: string) {
+  const base = getDashboardUrl(slug);
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = `${base}/auth/callback`;
+
+  [['access_token', access_token], ['refresh_token', refresh_token]].forEach(([k, v]) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = k;
+    input.value = v;
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
 export async function signup(
   email: string,
   password: string,
@@ -37,8 +56,7 @@ export async function signup(
   }
 
   const { slug, access_token, refresh_token } = data;
-  const base = getDashboardUrl(slug);
-  window.location.href = `${base}/auth/callback?access_token=${access_token}&refresh_token=${refresh_token}`;
+  redirectToDashboard(slug, access_token, refresh_token);
 }
 
 export async function login(email: string, password: string) {
@@ -58,6 +76,5 @@ export async function login(email: string, password: string) {
   }
 
   const { slug, access_token, refresh_token } = data;
-  const base = getDashboardUrl(slug);
-  window.location.href = `${base}/auth/callback?access_token=${access_token}&refresh_token=${refresh_token}`;
+  redirectToDashboard(slug, access_token, refresh_token);
 }
