@@ -290,10 +290,32 @@ section.section {
   50% { transform: translateY(-6px); }
 }
 
+@keyframes float-a {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-b {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes float-stamp-404 {
+  0%, 100% { transform: rotate(15deg) translateY(0px); }
+  50% { transform: rotate(15deg) translateY(-10px); }
+}
+
 .animate-pulse-badge {
   animation: badge-pulse 0.9s ease-in-out infinite;
   transform-origin: center;
 }
+
+.animate-float-receipt { animation: float-a 5s ease-in-out infinite; }
+.animate-float-badge   { animation: float-a 3.8s ease-in-out infinite 0.5s; }
+.animate-float-chat    { animation: float-b 4.5s ease-in-out infinite 1s; }
+.animate-float-stamp   { animation: float-stamp-404 4.5s ease-in-out infinite 0.3s; }
+.animate-float-pill    { animation: float-b 4s ease-in-out infinite 1.5s; }
+.animate-float-search  { animation: float-a 5.5s ease-in-out infinite 0.8s; }
 
 /* ── Utilities ───────────────────────────────────────────────── */
 .shout {

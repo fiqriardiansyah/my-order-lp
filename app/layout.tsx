@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
     images: ["/og-image.png"],
   },
+  manifest: "/site.webmanifest",
   robots: {
     index: true,
     follow: true,
