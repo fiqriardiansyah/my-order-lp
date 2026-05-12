@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
-    description:
-      "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
+    description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
     url: "https://kasigo.online",
     siteName: "Kasigo",
     images: [
@@ -47,8 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
-    description:
-      "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
+    description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -82,7 +80,7 @@ const jsonLd = {
   },
 };
 
-const isBeta = process.env.VITE_ENVIRONMENT === "beta";
+const isBeta = process.env.NEXT_PUBLIC_ENVIRONMENT === "beta";
 
 export default function RootLayout({
   children,
