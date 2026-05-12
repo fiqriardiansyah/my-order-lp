@@ -11,7 +11,7 @@ import { login } from "@/lib/auth";
 
 const schema = z.object({
   email: z.string().email("Format email tidak valid"),
-  password: z.string().min(6, "Password minimal 6 karakter"),
+  password: z.string().min(8, "Password minimal 8 karakter"),
   remember: z.boolean().optional(),
 });
 
@@ -126,12 +126,12 @@ export default function SigninPage() {
               <label className="text-[13px] font-semibold text-[var(--fg)]">
                 Password
               </label>
-              <a
-                href="#"
+              <Link
+                href="/forgot-password"
                 className="text-[13px] font-semibold text-[var(--accent)] hover:underline"
               >
                 Lupa password?
-              </a>
+              </Link>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--fg-subtle)] pointer-events-none">
