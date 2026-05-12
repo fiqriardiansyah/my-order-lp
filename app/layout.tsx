@@ -82,6 +82,8 @@ const jsonLd = {
   },
 };
 
+const isBeta = process.env.VITE_ENVIRONMENT === "beta";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,6 +96,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {isBeta && (
+          <div className="sticky top-0 z-[100] flex items-center justify-center gap-2 bg-amber-400 py-1.5 text-xs font-semibold text-amber-900">
+            <span className="size-1.5 rounded-full bg-amber-700 animate-pulse" />
+            BETA
+          </div>
+        )}
         {children}
         <Toaster richColors position="top-center" />
         <Analytics />
