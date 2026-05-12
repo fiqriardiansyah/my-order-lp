@@ -24,7 +24,6 @@ export default function Home() {
     <>
       <Nav lang={lang} setLang={setLang} />
       <main>
-        <h1>HELLO WORLDDD</h1>
         <Hero lang={lang} />
         <SocialProof lang={lang} rhythm={true} />
         <Problems lang={lang} />
