@@ -291,6 +291,7 @@ export default function SignupPage() {
     >
       {/* ── Left: Form ──────────────────────────────────────── */}
       <div
+        className="signup-form-col"
         style={{
           display: "flex",
           flexDirection: "column",

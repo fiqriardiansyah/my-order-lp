@@ -51,9 +51,9 @@ export default function FAQ({ lang }: FAQProps) {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="section" id="faq" style={{ paddingTop: 80, paddingBottom: 80 }}>
+    <section className="section" id="faq">
       <div className="container-tight">
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 2fr)', gap: 56, alignItems: 'start' }}>
+        <div className="faq-grid">
           <div style={{ position: 'sticky', top: 96 }} className="faq-aside">
             <div className="eyebrow" style={{ marginBottom: 16 }}>
               <span className="dot" />
@@ -64,7 +64,7 @@ export default function FAQ({ lang }: FAQProps) {
             </h2>
             <p className="lede" style={{ marginTop: 16 }}>
               {lang === 'id' ? 'Masih ada pertanyaan? ' : 'Got more questions? '}
-              <a href="#" style={{ color: 'var(--brand)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              <a href="https://wa.me/6285273580367" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
                 {lang === 'id' ? 'Chat tim kami.' : 'Chat our team.'}
               </a>
             </p>
@@ -106,7 +106,7 @@ export default function FAQ({ lang }: FAQProps) {
                     overflow: 'hidden',
                     transition: 'max-height 280ms ease',
                   }}>
-                    <p style={{ margin: 0, paddingBottom: 24, paddingRight: 56, fontSize: 15, lineHeight: 1.6, color: 'var(--fg-muted)' }}>
+                    <p className="faq-answer" style={{ margin: 0, paddingBottom: 24, paddingRight: 56, fontSize: 15, lineHeight: 1.6, color: 'var(--fg-muted)' }}>
                       {lang === 'id' ? item.aId : item.aEn}
                     </p>
                   </div>

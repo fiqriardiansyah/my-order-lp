@@ -33,7 +33,7 @@ export default function Nav({ lang, setLang }: NavProps) {
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
         <a href="#top" className="kasigo-wordmark">
-          <span className="kasigo-mark">K</span>
+          <img src="/favicon-32x32.png" alt="Kasigo" width={32} height={32} />
           <span>Kasigo</span>
         </a>
         <nav className="nav-links" style={{ display: 'flex', gap: 32 }}>
