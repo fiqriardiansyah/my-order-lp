@@ -3,14 +3,10 @@ const FORGOT_PASSWORD_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v
 const RESET_PASSWORD_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/reset-password`;
 
 function getRedirectTo(): string {
-  const domain = process.env.NEXT_PUBLIC_DOMAIN;
-  if (!domain) throw new Error("NEXT_PUBLIC_DOMAIN is not set");
+  const domain = process.env.NEXT_PUBLIC_APP_URL;
+  if (!domain) throw new Error("NEXT_PUBLIC_APP_URL is not set");
 
-  if (process.env.NEXT_PUBLIC_ENVIRONMENT === "beta") {
-    return `http://${domain}/reset-password`;
-  }
-
-  return `https://${domain}/reset-password`;
+  return new URL("/reset-password", domain).toString();
 }
 
 function getDashboardUrl(slug: string): string {
@@ -29,7 +25,7 @@ function redirectToDashboard(
 
   const form = document.createElement("form");
   form.method = "POST";
-  form.action = `${base}/auth/callback`;
+  form.action = new URL("/auth/callback", base).toString();
 
   [
     ["access_token", access_token],
