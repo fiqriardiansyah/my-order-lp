@@ -596,6 +596,12 @@ section.section {
   max-width: 100%;
 }
 
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 40px;
+}
+
 /* ── FAQ two-column grid ─────────────────────────────────────── */
 .faq-grid {
   display: grid;
