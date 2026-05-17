@@ -389,7 +389,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label style={labelStyle}>Email kerja</label>
+                <label style={labelStyle}>Email</label>
                 <div style={inputWrapStyle}>
                   <span style={iconWrapStyle}>
                     <Mail size={15} />
@@ -397,7 +397,7 @@ export default function SignupPage() {
                   <input
                     {...register("email")}
                     type="email"
-                    placeholder="kamu@restoran.com"
+                    placeholder="rini@example.com"
                     style={inputStyle}
                   />
                 </div>
