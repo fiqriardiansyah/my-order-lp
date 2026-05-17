@@ -1,6 +1,12 @@
 "use client";
 
 import { ArrowRight, Play, CheckCircle2 } from "lucide-react";
+
+declare global {
+  interface Window {
+    Calendly?: { initPopupWidget: (opts: { url: string }) => void };
+  }
+}
 import DashboardMockup from "./mockups/DashboardMockup";
 import PhoneMockup from "./mockups/PhoneMockup";
 
@@ -53,12 +59,19 @@ export default function Hero({ lang }: HeroProps) {
                 href="/signup"
                 className="btn btn-primary btn-lg justify-center"
               >
-                {lang === "id" ? "Coba Gratis 14 Hari" : "Try Free for 14 Days"}
+                {lang === "id" ? "Mulai Gratis" : "Get Started Free"}
                 <ArrowRight size={16} />
               </a>
-              <button className="btn btn-secondary btn-lg">
+              <button
+                className="btn btn-secondary btn-lg"
+                onClick={() =>
+                  window.Calendly?.initPopupWidget({
+                    url: "https://calendly.com/fiqriardiansyah/demo-kasigo",
+                  })
+                }
+              >
                 <Play size={14} />
-                {lang === "id" ? "Lihat Demo" : "Watch Demo"}
+                {lang === "id" ? "Booking Demo" : "Booking Demo"}
               </button>
             </div>
             <div className="flex flex-wrap gap-4 mt-5 text-[13px] text-(--fg-muted) justify-center sm:gap-6 sm:mt-7">

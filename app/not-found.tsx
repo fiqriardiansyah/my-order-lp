@@ -88,7 +88,7 @@ export default function NotFound() {
                     href: "/signup",
                     Icon: UserPlus,
                     label: "Daftar gratis",
-                    sub: "Coba 14 hari, tanpa CC",
+                    sub: "Mulai gratis selamanya",
                   },
                   {
                     href: "/signin",
