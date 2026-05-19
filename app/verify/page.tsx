@@ -13,6 +13,16 @@ export default function VerifyPage() {
 
   useEffect(() => {
     const hash = new URLSearchParams(window.location.hash.slice(1));
+
+    const error_description = hash.get("error_description");
+    if (error_description) {
+      queueMicrotask(() => {
+        setErrorMessage(error_description.replace(/\+/g, " "));
+        setState("error");
+      });
+      return;
+    }
+
     const access_token = hash.get("access_token");
     const refresh_token = hash.get("refresh_token");
     const type = hash.get("type");
