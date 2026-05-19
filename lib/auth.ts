@@ -1,4 +1,4 @@
-const SIGN_URL_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/sign-user`;
+const SIGN_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/sign-user`;
 const FORGOT_PASSWORD_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/forgot-password`;
 const RESET_PASSWORD_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/reset-password`;
 
@@ -53,7 +53,7 @@ export async function signup(
   restaurantName: string,
   restaurantSlug: string,
 ): Promise<SignupResult> {
-  const res = await fetch(SIGN_URL_URL, {
+  const res = await fetch(SIGN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -76,7 +76,10 @@ export async function signup(
   }
 
   if (data.requiresConfirmation) {
-    return { requiresConfirmation: true, message: data.message ?? "Cek email kamu untuk mengaktifkan akun." };
+    return {
+      requiresConfirmation: true,
+      message: data.message ?? "Cek email kamu untuk mengaktifkan akun.",
+    };
   }
 
   const { slug, access_token, refresh_token } = data;
@@ -125,8 +128,37 @@ export async function resetPassword(
   return data.message ?? data.msg ?? "Password berhasil diubah.";
 }
 
+export async function verifyToken(
+  access_token: string,
+  refresh_token: string,
+  type: string,
+) {
+  const res = await fetch(SIGN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "verify_token",
+      access_token,
+      refresh_token,
+      type,
+    }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    const err = new Error(
+      data.error ?? data.msg ?? "Terjadi kesalahan",
+    ) as Error & { status: number };
+    err.status = res.status;
+    throw err;
+  }
+
+  const { slug } = data;
+  redirectToDashboard(slug, access_token, refresh_token);
+}
+
 export async function login(email: string, password: string) {
-  const res = await fetch(SIGN_URL_URL, {
+  const res = await fetch(SIGN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ action: "login", email, password }),
