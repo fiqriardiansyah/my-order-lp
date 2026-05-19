@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,6 +20,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function SigninPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const searchParams = useSearchParams();
 
   const {
     register,
@@ -27,7 +29,7 @@ export default function SigninPage() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: "onChange",
-    defaultValues: { remember: false },
+    defaultValues: { email: searchParams.get("email") ?? "", remember: false },
   });
 
   async function onSubmit(values: FormValues) {

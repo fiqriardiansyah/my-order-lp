@@ -42,13 +42,17 @@ function redirectToDashboard(
   form.submit();
 }
 
+export type SignupResult =
+  | { requiresConfirmation: true; message: string }
+  | { requiresConfirmation: false };
+
 export async function signup(
   email: string,
   password: string,
   name: string,
   restaurantName: string,
   restaurantSlug: string,
-) {
+): Promise<SignupResult> {
   const res = await fetch(SIGN_URL_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -71,8 +75,13 @@ export async function signup(
     throw err;
   }
 
+  if (data.requiresConfirmation) {
+    return { requiresConfirmation: true, message: data.message ?? "Cek email kamu untuk mengaktifkan akun." };
+  }
+
   const { slug, access_token, refresh_token } = data;
   redirectToDashboard(slug, access_token, refresh_token);
+  return { requiresConfirmation: false };
 }
 
 export async function forgotPassword(email: string): Promise<string> {

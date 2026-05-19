@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { signup } from "@/lib/auth";
+import { MailCheck } from "lucide-react";
 
 const schema = z
   .object({
@@ -224,6 +225,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [slugEdited, setSlugEdited] = useState(false);
+  const [confirmed, setConfirmed] = useState<{ email: string; message: string } | null>(null);
 
   const {
     register,
@@ -263,13 +265,16 @@ export default function SignupPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      await signup(
+      const result = await signup(
         values.email,
         values.password,
         values.name,
         values.restaurantName,
         values.restaurantSlug,
       );
+      if (result.requiresConfirmation) {
+        setConfirmed({ email: values.email, message: result.message });
+      }
     } catch (err) {
       setError("restaurantSlug", {
         message: (err as Error)?.message || "Terjadi kesalahan. Coba lagi.",
@@ -278,6 +283,39 @@ export default function SignupPage() {
         err instanceof Error ? err.message : "Terjadi kesalahan. Coba lagi.",
       );
     }
+  }
+
+  if (confirmed) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+        <div className="flex max-w-md flex-col items-center gap-6 text-center">
+          <div className="flex size-16 items-center justify-center rounded-full bg-emerald-50">
+            <MailCheck size={32} className="text-emerald-600" />
+          </div>
+          <div>
+            <h1 className="mb-2 text-2xl font-bold tracking-tight text-(--fg)">
+              Cek email kamu
+            </h1>
+            <p className="text-sm leading-relaxed text-(--fg-muted)">
+              Kami mengirim tautan konfirmasi ke{" "}
+              <span className="font-semibold text-(--fg)">{confirmed.email}</span>.
+              Klik tautan tersebut untuk mengaktifkan akun Kasigo kamu.
+            </p>
+          </div>
+          <p className="text-xs text-(--fg-subtle)">
+            Tidak ada email? Cek folder spam, atau{" "}
+            <button
+              type="button"
+              className="font-semibold text-(--accent) underline underline-offset-2"
+              onClick={() => setConfirmed(null)}
+            >
+              coba daftar ulang
+            </button>
+            .
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
