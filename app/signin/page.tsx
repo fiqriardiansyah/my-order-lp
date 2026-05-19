@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export default function SigninPage() {
+function SigninForm() {
   const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
 
@@ -204,5 +204,13 @@ export default function SigninPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SigninPage() {
+  return (
+    <Suspense>
+      <SigninForm />
+    </Suspense>
   );
 }
