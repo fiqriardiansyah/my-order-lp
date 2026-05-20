@@ -20,12 +20,15 @@ function redirectToDashboard(
   slug: string,
   access_token: string,
   refresh_token: string,
+  plan?: string,
 ) {
   const base = getDashboardUrl(slug);
+  const callbackUrl = new URL("/auth/callback", base);
+  if (plan) callbackUrl.searchParams.set("plan", plan);
 
   const form = document.createElement("form");
   form.method = "POST";
-  form.action = new URL("/auth/callback", base).toString();
+  form.action = callbackUrl.toString();
 
   [
     ["access_token", access_token],
@@ -52,6 +55,7 @@ export async function signup(
   name: string,
   restaurantName: string,
   restaurantSlug: string,
+  plan?: string,
 ): Promise<SignupResult> {
   const res = await fetch(SIGN_URL, {
     method: "POST",
@@ -63,6 +67,7 @@ export async function signup(
       name,
       restaurantName,
       restaurantSlug,
+      ...(plan ? { plan } : {}),
     }),
   });
 
@@ -83,7 +88,7 @@ export async function signup(
   }
 
   const { slug, access_token, refresh_token } = data;
-  redirectToDashboard(slug, access_token, refresh_token);
+  redirectToDashboard(slug, access_token, refresh_token, plan);
   return { requiresConfirmation: false };
 }
 
@@ -132,6 +137,7 @@ export async function verifyToken(
   access_token: string,
   refresh_token: string,
   type: string,
+  plan?: string,
 ) {
   const res = await fetch(SIGN_URL, {
     method: "POST",
@@ -154,7 +160,7 @@ export async function verifyToken(
   }
 
   const { slug } = data;
-  redirectToDashboard(slug, access_token, refresh_token);
+  redirectToDashboard(slug, access_token, refresh_token, plan);
 }
 
 export async function login(email: string, password: string) {

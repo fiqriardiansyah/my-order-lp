@@ -26,13 +26,14 @@ export default function VerifyPage() {
     const access_token = hash.get("access_token");
     const refresh_token = hash.get("refresh_token");
     const type = hash.get("type");
+    const plan = new URLSearchParams(window.location.search).get("plan") ?? undefined;
 
     if (!access_token || !refresh_token || !type) {
       queueMicrotask(() => setState("missing"));
       return;
     }
 
-    verifyToken(access_token, refresh_token, type)
+    verifyToken(access_token, refresh_token, type, plan)
       .then(() => setState("success"))
       .catch((err) => {
         setErrorMessage(

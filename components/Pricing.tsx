@@ -1,4 +1,5 @@
 import { Check, Printer, Utensils, Store } from 'lucide-react';
+import Link from 'next/link';
 
 interface PricingProps {
   lang: 'id' | 'en';
@@ -279,11 +280,12 @@ export default function Pricing({ lang, rhythm }: PricingProps) {
                   ))}
                 </div>
 
-                <button
-                  className={`btn btn-lg mt-7 w-full ${isPop ? 'btn-accent' : 'btn-primary'}`}
+                <Link
+                  href={t.id === 'gratis' ? '/signup' : `/signup?plan=${t.id}`}
+                  className={`btn btn-lg mt-7 w-full text-center ${isPop ? 'btn-accent' : 'btn-primary'}`}
                 >
                   {lang === 'id' ? t.ctaId : t.ctaEn}
-                </button>
+                </Link>
               </div>
             );
           })}

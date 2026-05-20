@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,6 +21,21 @@ import {
 import Link from "next/link";
 import { signup } from "@/lib/auth";
 import { MailCheck } from "lucide-react";
+
+const PLAN_INFO = {
+  warung: {
+    name: 'Warung',
+    price: 'Rp 99.000',
+    note: 'atau Rp 950.000 / tahun (hemat 2 bulan)',
+    badgeClass: 'bg-blue-50 text-blue-600',
+  },
+  restoran: {
+    name: 'Restoran',
+    price: 'Rp 249.000',
+    note: 'atau Rp 2.390.000 / tahun (hemat 2 bulan)',
+    badgeClass: 'bg-amber-50 text-amber-600',
+  },
+} as const;
 
 const schema = z
   .object({
@@ -221,7 +237,11 @@ function LiveOrdersMockup() {
   );
 }
 
-export default function SignupPage() {
+function SignupContent() {
+  const searchParams = useSearchParams();
+  const planId = searchParams.get("plan") ?? "";
+  const plan = planId in PLAN_INFO ? PLAN_INFO[planId as keyof typeof PLAN_INFO] : null;
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [slugEdited, setSlugEdited] = useState(false);
@@ -271,6 +291,7 @@ export default function SignupPage() {
         values.name,
         values.restaurantName,
         values.restaurantSlug,
+        planId || undefined,
       );
       if (result.requiresConfirmation) {
         setConfirmed({ email: values.email, message: result.message });
@@ -384,13 +405,13 @@ export default function SignupPage() {
               margin: "0 0 8px",
             }}
           >
-            Mulai pakai Kasigo gratis.
+            {plan ? `Mulai dengan Paket ${plan.name}.` : "Mulai pakai Kasigo gratis."}
           </h1>
           <p
             style={{
               fontSize: 14,
               color: "var(--fg-muted)",
-              margin: "0 0 32px",
+              margin: "0 0 24px",
             }}
           >
             Sudah punya akun?{" "}
@@ -406,6 +427,18 @@ export default function SignupPage() {
               Masuk di sini
             </a>
           </p>
+
+          {plan && (
+            <div className="flex items-center justify-between rounded-xl border border-(--border) bg-(--bg-cream) px-4 py-3 mb-8">
+              <div className="flex items-center gap-2.5">
+                <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${plan.badgeClass}`}>
+                  {plan.name}
+                </span>
+                <span className="text-sm font-semibold text-(--fg)">{plan.price} <span className="font-normal text-(--fg-muted)">/ bulan</span></span>
+              </div>
+              <span className="text-[11px] text-(--fg-subtle) hidden sm:block">{plan.note}</span>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Fields */}
@@ -916,3 +949,11 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "var(--font-sans)",
   transition: "border-color 150ms",
 };
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <SignupContent />
+    </Suspense>
+  );
+}
