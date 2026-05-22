@@ -74,18 +74,6 @@ export default function Hero({ lang }: HeroProps) {
                 {lang === "id" ? "Booking Demo" : "Booking Demo"}
               </button>
             </div>
-            <div className="flex flex-wrap gap-4 mt-5 text-[13px] text-(--fg-muted) justify-center sm:gap-6 sm:mt-7">
-              {[
-                lang === "id" ? "Tanpa kartu kredit" : "No credit card",
-                lang === "id" ? "Setup 10 menit" : "10-min setup",
-                "Bahasa Indonesia",
-              ].map((text, i) => (
-                <span key={i} className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 size={14} className="text-(--brand)" />
-                  {text}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Mockups */}

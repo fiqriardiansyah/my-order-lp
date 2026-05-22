@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface NavProps {
   lang: 'id' | 'en';
@@ -9,6 +10,8 @@ interface NavProps {
 
 export default function Nav({ lang, setLang }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -16,11 +19,13 @@ export default function Nav({ lang, setLang }: NavProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const prefix = isHome ? '' : '/';
   const links = [
-    { href: '#features', label: lang === 'id' ? 'Fitur' : 'Features' },
-    { href: '#how', label: lang === 'id' ? 'Cara Kerja' : 'How it works' },
-    { href: '#pricing', label: lang === 'id' ? 'Harga' : 'Pricing' },
-    { href: '#testimonials', label: lang === 'id' ? 'Testimoni' : 'Testimonials' },
+    { href: `${prefix}#features`, label: lang === 'id' ? 'Fitur' : 'Features' },
+    { href: `${prefix}#how`, label: lang === 'id' ? 'Cara Kerja' : 'How it works' },
+    { href: `${prefix}#pricing`, label: lang === 'id' ? 'Harga' : 'Pricing' },
+    { href: `${prefix}#testimonials`, label: lang === 'id' ? 'Testimoni' : 'Testimonials' },
+    { href: '/templates', label: lang === 'id' ? 'Template' : 'Templates' },
   ];
 
   return (
@@ -32,20 +37,27 @@ export default function Nav({ lang, setLang }: NavProps) {
       transition: 'border-color 200ms, background 200ms',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
-        <a href="#top" className="kasigo-wordmark">
+        <a href={isHome ? '#top' : '/'} className="kasigo-wordmark">
           <img src="/favicon-32x32.png" alt="Kasigo" width={32} height={32} />
           <span>Kasigo</span>
         </a>
         <nav className="nav-links" style={{ display: 'flex', gap: 32 }}>
-          {links.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              style={{ fontSize: 14, fontWeight: 500, color: 'var(--fg-muted)', transition: 'color 150ms' }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--fg)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--fg-muted)')}
-            >{l.label}</a>
-          ))}
+          {links.map(l => {
+            const active = l.href === pathname;
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                style={{
+                  fontSize: 14, fontWeight: active ? 600 : 500,
+                  color: active ? 'var(--fg)' : 'var(--fg-muted)',
+                  transition: 'color 150ms',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--fg)')}
+                onMouseLeave={e => (e.currentTarget.style.color = active ? 'var(--fg)' : 'var(--fg-muted)')}
+              >{l.label}</a>
+            );
+          })}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button
