@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
+import Image from "next/image";
 import { useState } from "react";
 
 type Category =
@@ -26,30 +27,25 @@ interface Template {
   rating: number;
   usedCount: number;
   badge?: { label: string; type: "trending" | "new" | "premium" };
-  previewBg: string;
-  previewText: string;
-  previewTextColor: string;
-  previewAccent: string;
+  previewImage: string;
   colors: string[];
 }
 
 const TEMPLATES: Template[] = [
   {
-    id: "maison-classique",
-    name: "Maison Classique",
-    domain: "bistromaison.id",
+    id: "template-1",
+    name: "Jurnal Dapur",
+    domain: process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-1.html",
     category: "BISTRO",
     subcategory: "FRENCH",
     description:
-      "Layout serif elegan dengan tiga kolom galeri. Cocok untuk bistro, brasserie, dan kafe konsep Eropa.",
+      "Sebuah dapur kecil di Jalan Linden tempat roti dilipat dengan tangan, kaldu mendidih sejak pagi, dan menu harian mengikuti apa yang diberi pasar.",
     price: 290000,
     rating: 4.9,
-    usedCount: 142,
+    usedCount: 8,
     badge: { label: "TRENDING", type: "trending" },
-    previewBg: "#f5ede0",
-    previewText: "Bonjour, Jakarta",
-    previewTextColor: "#2d1a0e",
-    previewAccent: "#c49a5e",
+    previewImage:
+      process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-1.png",
     colors: ["#8B6914", "#C4A35A", "#3D2B1F", "#F5E8D0"],
   },
 ];
@@ -110,10 +106,7 @@ function TemplateCard({ template }: { template: Template }) {
         <BrowserChrome domain={template.domain} />
 
         {/* Preview area */}
-        <div
-          className="relative h-52 flex flex-col items-center justify-center overflow-hidden"
-          style={{ background: template.previewBg }}
-        >
+        <div className="relative h-52 overflow-hidden bg-gray-100">
           {/* Badge */}
           {template.badge && (
             <div className="absolute top-3 left-3 z-10">
@@ -124,43 +117,12 @@ function TemplateCard({ template }: { template: Template }) {
             </div>
           )}
 
-          {/* Preview content */}
-          <div className="text-center px-6 select-none">
-            <p
-              className="text-xl font-bold leading-tight"
-              style={{
-                color: template.previewTextColor,
-                fontFamily:
-                  template.id === "maison-classique" ||
-                  template.id === "lotus-garden"
-                    ? "Georgia, serif"
-                    : template.id === "genji-minimal"
-                      ? "var(--font-sans)"
-                      : "inherit",
-                letterSpacing:
-                  template.id === "genji-minimal" ? "0.2em" : undefined,
-                fontStyle:
-                  template.id === "maison-classique" ||
-                  template.id === "rosa-co"
-                    ? "italic"
-                    : undefined,
-              }}
-            >
-              {template.previewText}
-            </p>
-            <div
-              className="mt-2 h-0.5 w-12 mx-auto rounded"
-              style={{ background: template.previewAccent, opacity: 0.7 }}
-            />
-            {template.id === "rosa-co" && (
-              <p
-                className="mt-2 text-xs font-semibold"
-                style={{ color: template.previewAccent }}
-              >
-                Mulai Rp 18k
-              </p>
-            )}
-          </div>
+          <Image
+            src={template.previewImage}
+            alt={template.name}
+            fill
+            className="object-cover object-top"
+          />
         </div>
       </div>
 
@@ -212,7 +174,7 @@ function TemplateCard({ template }: { template: Template }) {
         {/* CTA row */}
         <div className="flex gap-2 pt-3 mt-1 border-t border-(--border)">
           <a
-            href={`https://${template.domain}`}
+            href={`${template.domain}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center py-2 rounded-lg text-sm font-semibold border border-(--border) text-(--fg-muted) hover:border-(--border-strong) hover:text-(--fg) transition-colors"
@@ -316,7 +278,10 @@ export default function TemplatesPage() {
           </div>
 
           {/* CTAs */}
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap">
+            <p className="text-sm text-(--fg-muted) font-medium">
+              Mau desain yang sesuai mau kamu?
+            </p>
             <a
               href="https://wa.me/6285273580367"
               target="_blank"
@@ -339,6 +304,14 @@ export default function TemplatesPage() {
 
         {/* Filter + Grid */}
         <section id="templates-grid" className="max-w-7xl mx-auto px-6 pb-20">
+          {/* Weekly update notice */}
+          <div className="flex items-center gap-2 mb-6 text-sm text-(--fg-muted)">
+            <span className="inline-flex items-center gap-1.5 bg-white border border-(--border) rounded-full px-3 py-1.5">
+              <span className="size-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
+              <span className="font-medium text-(--fg)">Template baru ditambahkan setiap minggu</span>
+            </span>
+          </div>
+
           {/* Template grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {sorted.map((template) => (
