@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,6 +20,22 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { signup } from "@/lib/auth";
+import { MailCheck } from "lucide-react";
+
+const PLAN_INFO = {
+  warung: {
+    name: 'Warung',
+    price: 'Rp 99.000',
+    note: 'atau Rp 950.000 / tahun (hemat 2 bulan)',
+    badgeClass: 'bg-blue-50 text-blue-600',
+  },
+  restoran: {
+    name: 'Restoran',
+    price: 'Rp 249.000',
+    note: 'atau Rp 2.390.000 / tahun (hemat 2 bulan)',
+    badgeClass: 'bg-amber-50 text-amber-600',
+  },
+} as const;
 
 const schema = z
   .object({
@@ -220,10 +237,15 @@ function LiveOrdersMockup() {
   );
 }
 
-export default function SignupPage() {
+function SignupContent() {
+  const searchParams = useSearchParams();
+  const planId = searchParams.get("plan") ?? "";
+  const plan = planId in PLAN_INFO ? PLAN_INFO[planId as keyof typeof PLAN_INFO] : null;
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [slugEdited, setSlugEdited] = useState(false);
+  const [confirmed, setConfirmed] = useState<{ email: string; message: string } | null>(null);
 
   const {
     register,
@@ -263,13 +285,17 @@ export default function SignupPage() {
 
   async function onSubmit(values: FormValues) {
     try {
-      await signup(
+      const result = await signup(
         values.email,
         values.password,
         values.name,
         values.restaurantName,
         values.restaurantSlug,
+        planId || undefined,
       );
+      if (result.requiresConfirmation) {
+        setConfirmed({ email: values.email, message: result.message });
+      }
     } catch (err) {
       setError("restaurantSlug", {
         message: (err as Error)?.message || "Terjadi kesalahan. Coba lagi.",
@@ -278,6 +304,39 @@ export default function SignupPage() {
         err instanceof Error ? err.message : "Terjadi kesalahan. Coba lagi.",
       );
     }
+  }
+
+  if (confirmed) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+        <div className="flex max-w-md flex-col items-center gap-6 text-center">
+          <div className="flex size-16 items-center justify-center rounded-full bg-emerald-50">
+            <MailCheck size={32} className="text-emerald-600" />
+          </div>
+          <div>
+            <h1 className="mb-2 text-2xl font-bold tracking-tight text-(--fg)">
+              Cek email kamu
+            </h1>
+            <p className="text-sm leading-relaxed text-(--fg-muted)">
+              Kami mengirim tautan konfirmasi ke{" "}
+              <span className="font-semibold text-(--fg)">{confirmed.email}</span>.
+              Klik tautan tersebut untuk mengaktifkan akun Kasigo kamu.
+            </p>
+          </div>
+          <p className="text-xs text-(--fg-subtle)">
+            Tidak ada email? Cek folder spam, atau{" "}
+            <button
+              type="button"
+              className="font-semibold text-(--accent) underline underline-offset-2"
+              onClick={() => setConfirmed(null)}
+            >
+              coba daftar ulang
+            </button>
+            .
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -291,6 +350,7 @@ export default function SignupPage() {
     >
       {/* ── Left: Form ──────────────────────────────────────── */}
       <div
+        className="signup-form-col"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -345,13 +405,13 @@ export default function SignupPage() {
               margin: "0 0 8px",
             }}
           >
-            Mulai pakai Kasigo gratis.
+            {plan ? `Mulai dengan Paket ${plan.name}.` : "Mulai pakai Kasigo gratis."}
           </h1>
           <p
             style={{
               fontSize: 14,
               color: "var(--fg-muted)",
-              margin: "0 0 32px",
+              margin: "0 0 24px",
             }}
           >
             Sudah punya akun?{" "}
@@ -367,6 +427,18 @@ export default function SignupPage() {
               Masuk di sini
             </a>
           </p>
+
+          {plan && (
+            <div className="flex items-center justify-between rounded-xl border border-(--border) bg-(--bg-cream) px-4 py-3 mb-8">
+              <div className="flex items-center gap-2.5">
+                <span className={`inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${plan.badgeClass}`}>
+                  {plan.name}
+                </span>
+                <span className="text-sm font-semibold text-(--fg)">{plan.price} <span className="font-normal text-(--fg-muted)">/ bulan</span></span>
+              </div>
+              <span className="text-[11px] text-(--fg-subtle) hidden sm:block">{plan.note}</span>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Fields */}
@@ -388,7 +460,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label style={labelStyle}>Email kerja</label>
+                <label style={labelStyle}>Email</label>
                 <div style={inputWrapStyle}>
                   <span style={iconWrapStyle}>
                     <Mail size={15} />
@@ -396,7 +468,7 @@ export default function SignupPage() {
                   <input
                     {...register("email")}
                     type="email"
-                    placeholder="kamu@restoran.com"
+                    placeholder="rini@example.com"
                     style={inputStyle}
                   />
                 </div>
@@ -877,3 +949,11 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "var(--font-sans)",
   transition: "border-color 150ms",
 };
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <SignupContent />
+    </Suspense>
+  );
+}

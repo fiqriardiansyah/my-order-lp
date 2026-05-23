@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -13,7 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
   description:
-    "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi. Pelanggan pesan lewat QR code, staff pantau real-time. Coba gratis 14 hari.",
+    "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi. Pelanggan pesan lewat QR code, staff pantau real-time. Mulai gratis selamanya.",
   keywords: [
     "aplikasi restoran",
     "manajemen kafe",
@@ -29,8 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
-    description:
-      "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
+    description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
     url: "https://kasigo.online",
     siteName: "Kasigo",
     images: [
@@ -47,10 +47,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
-    description:
-      "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
+    description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
     images: ["/og-image.png"],
   },
+  manifest: "/site.webmanifest",
   robots: {
     index: true,
     follow: true,
@@ -82,7 +82,7 @@ const jsonLd = {
   },
 };
 
-const isBeta = process.env.VITE_ENVIRONMENT === "beta";
+const isBeta = process.env.NEXT_PUBLIC_ENVIRONMENT === "beta";
 
 export default function RootLayout({
   children,
@@ -91,6 +91,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={inter.variable}>
+      <head>
+        <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+      </head>
       <body>
         <script
           type="application/ld+json"
@@ -105,6 +108,7 @@ export default function RootLayout({
         {children}
         <Toaster richColors position="top-center" />
         <Analytics />
+        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
       </body>
     </html>
   );

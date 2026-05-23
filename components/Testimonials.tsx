@@ -19,39 +19,51 @@ interface Testimonial {
 const items: Testimonial[] = [
   {
     quoteId:
-      "Sebelum pakai Kasigo, weekend itu chaos — bon kebakar, salah meja, antrian kasir panjang. Sekarang pelanggan pesan sendiri dari HP, dapur kami auto tau. Game changer.",
+      "Awalnya ragu, takut staf saya yang gaptek nggak bisa. Eh ternyata setengah hari langsung jalan. Yang paling berasa: dulu meja pojok sering kelewat, sekarang masuk antrian dapur otomatis. Pelanggan nggak perlu teriak-teriak manggil lagi.",
     quoteEn:
-      "Weekends used to be chaos — burnt tickets, wrong tables, long cashier queues. Now guests order from their phones and the kitchen knows automatically. Game changer.",
+      "I was worried my less tech-savvy staff wouldn't cope. Half a day later we were running. The biggest change: our corner tables used to get missed, now orders go straight to the kitchen queue. No more guests shouting for service.",
     name: "Rini Wijayanti",
     roleId: "Owner",
     roleEn: "Owner",
-    venue: "Warung Ibu — Jakarta",
+    venue: "Warung Bu Rini · Jakarta Selatan",
     rating: 5,
     color: "#fbbf24",
   },
+  // {
+  //   quoteId:
+  //     "Pas lagi ramai ada staf yang izin mendadak, staf pengganti baru hari pertama langsung bisa handle meja sendiri karena semua kelihatan di layar. Biasanya butuh 3–4 hari training. Itu yang bikin saya yakin sama Kasigo.",
+  //   quoteEn:
+  //     "We had a staff no-show on a busy day. Their replacement — first day ever — handled tables on their own because everything's visible on screen. Usually takes 3–4 days to train someone. That's when I knew Kasigo was the one.",
+  //   name: "Dika Prasetyo",
+  //   roleId: "Manager",
+  //   roleEn: "Manager",
+  //   venue: "Kopi Murni · Bandung",
+  //   rating: 5,
+  //   color: "#0f6e56",
+  // },
   {
     quoteId:
-      "Yang paling kepake itu Floor View. Staff baru pun langsung paham meja mana yang minta bill, mana yang udah selesai. Training jadi 1 hari aja.",
+      "Bulan lalu ketahuan cabang Rungkut revenue-nya tiba-tiba turun. Ternyata ada menu yang sering habis tapi nggak di-toggle, jadi pelanggan pesan terus lalu dibatalin. Sekarang keliatan langsung dari dashboard, nggak perlu nunggu laporan akhir bulan.",
     quoteEn:
-      "The Floor View is what we use most. Even new staff understand which tables want the bill and which are done. Training is now one day.",
-    name: "Andre Hartono",
-    roleId: "Manager",
-    roleEn: "Manager",
-    venue: "Kopi Kenangan Lokal — Bandung",
+      "Last month I caught a revenue dip at my Rungkut branch. Turns out staff weren't toggling sold-out items, so guests kept ordering things we couldn't serve. Now I see it in real-time — no more waiting for the monthly report.",
+    name: "Budi Santoso",
+    roleId: "Owner · 3 outlet",
+    roleEn: "Owner · 3 outlets",
+    venue: "Sate Pak Budi · Surabaya",
     rating: 5,
-    color: "#0f6e56",
+    color: "#dc2626",
   },
   {
     quoteId:
-      "Saya bisa cek omzet 3 outlet dari rumah. Multi-role accessnya bersih, kasir cuma lihat yang dia perlu, owner lihat semua. Worth banget.",
+      "Tamu yang biasanya malu manggil pelayan sekarang pesan sendiri dari HP. Kelihatan sepele, tapi pesanan per meja naik lumayan — orang jadi lebih berani tambah order kalau nggak harus nunggu staf lewat.",
     quoteEn:
-      "I can check revenue for three outlets from home. The multi-role access is clean — cashiers see only what they need, owners see everything. Totally worth it.",
-    name: "Pak Budi Santoso",
-    roleId: "Owner, 3 outlet",
-    roleEn: "Owner, 3 outlets",
-    venue: "Sate Pak Budi — Surabaya",
+      "Guests who were too shy to flag down staff now just order from their phones. Seems small, but orders per table went up noticeably — people add more when they don't have to wait for someone to walk by.",
+    name: "Yuliana Dewi",
+    roleId: "Owner",
+    roleEn: "Owner",
+    venue: "Kafe Pelangi · Yogyakarta",
     rating: 5,
-    color: "#dc2626",
+    color: "#7c3aed",
   },
 ];
 

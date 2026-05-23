@@ -81,10 +81,11 @@ export default function Features({ lang, rhythm }: FeaturesProps) {
               : "From the customer's QR scan to the cashier's receipt — all connected. No need for five separate subscriptions."}
           </p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: 16 }}>
+        <div className="features-grid">
           {items.map(({ Icon, titleId, titleEn, bodyId, bodyEn }, i) => (
             <div
               key={i}
+              className="feature-card"
               style={{
                 background: '#fff',
                 border: '1px solid var(--border)',
