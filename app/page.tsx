@@ -6,10 +6,12 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
 import Problems from "@/components/Problems";
+import NggakPerlu from "@/components/NggakPerlu";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import SalesNotification from "@/components/SalesNotification";
 
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
 const Pricing = dynamic(() => import("@/components/Pricing"));
@@ -27,6 +29,7 @@ export default function Home() {
         <Hero lang={lang} />
         <SocialProof lang={lang} rhythm={true} />
         <Problems lang={lang} />
+        <NggakPerlu lang={lang} />
         <Features lang={lang} rhythm={true} />
         <HowItWorks lang={lang} rhythm={true} />
         <Testimonials lang={lang} rhythm={true} />
@@ -35,6 +38,7 @@ export default function Home() {
         <FinalCTA lang={lang} />
       </main>
       <Footer lang={lang} />
+      <SalesNotification lang={lang} />
     </>
   );
 }

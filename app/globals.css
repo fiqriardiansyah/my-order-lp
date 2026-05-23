@@ -602,6 +602,20 @@ section.section {
   gap: 40px;
 }
 
+/* ── Journey two-column grid ─────────────────────────────────── */
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .journey-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── FAQ two-column grid ─────────────────────────────────────── */
 .faq-grid {
   display: grid;

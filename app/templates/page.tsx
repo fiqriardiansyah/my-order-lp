@@ -42,11 +42,42 @@ const TEMPLATES: Template[] = [
       "Sebuah dapur kecil di Jalan Linden tempat roti dilipat dengan tangan, kaldu mendidih sejak pagi, dan menu harian mengikuti apa yang diberi pasar.",
     price: 290000,
     rating: 4.9,
-    usedCount: 8,
+    usedCount: 48,
     badge: { label: "TRENDING", type: "trending" },
     previewImage:
       process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-1.png",
-    colors: ["#8B6914", "#C4A35A", "#3D2B1F", "#F5E8D0"],
+    colors: [],
+  },
+  {
+    id: "template-2",
+    name: "Fine Dining",
+    domain: process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-2.html",
+    category: "FINE DINING",
+    subcategory: "FINE DINING",
+    description:
+      "Tujuh menu cicipan yang dirancang malam ini oleh dapur kami — bahan musiman dari kebun mitra, dimasak perlahan, disajikan dengan tenang. Setiap kursi punya ceritanya sendiri.",
+    price: 290000,
+    rating: 4.9,
+    usedCount: 12,
+    previewImage:
+      process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-2.png",
+    colors: [],
+  },
+  {
+    id: "template-3",
+    name: "Katering Nusantara",
+    domain: process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-3.html",
+    category: "INDONESIA",
+    subcategory: "KATERING",
+    description:
+      "Setiap pesta layak punya menu yang dirancang khusus. Kasigo Catering menyajikan masakan rumahan dengan bahan segar dari pasar pagi, disajikan hangat untuk 20 sampai 2.000 tamu Anda.",
+    price: 290000,
+    rating: 4.9,
+    usedCount: 31,
+    badge: { label: "TRENDING", type: "trending" },
+    previewImage:
+      process.env.NEXT_PUBLIC_ASSETS_URL + "/templates/template-3.png",
+    colors: [],
   },
 ];
 
@@ -308,7 +339,9 @@ export default function TemplatesPage() {
           <div className="flex items-center gap-2 mb-6 text-sm text-(--fg-muted)">
             <span className="inline-flex items-center gap-1.5 bg-white border border-(--border) rounded-full px-3 py-1.5">
               <span className="size-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
-              <span className="font-medium text-(--fg)">Template baru ditambahkan setiap minggu</span>
+              <span className="font-medium text-(--fg)">
+                Template baru ditambahkan setiap minggu
+              </span>
             </span>
           </div>
 
