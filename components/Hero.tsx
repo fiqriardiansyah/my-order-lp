@@ -112,11 +112,13 @@ export default function Hero({ lang }: HeroProps) {
           {/* Right column: Mockups */}
           <div className="hero-mock-wrap hidden sm:block">
             <div className="hero-mock-inner relative max-w-140 mx-auto">
-              <DashboardMockup />
-              <div className="hero-phone absolute -right-30 -bottom-12.5 rotate-[5deg]">
+              <div className="animate-float-hero-dash">
+                <DashboardMockup />
+              </div>
+              <div className="hero-phone absolute -right-30 -bottom-12.5 animate-float-hero-phone">
                 <PhoneMockup />
               </div>
-              <div className="hero-live-badge absolute -left-4 top-7.5 bg-white border border-(--border) rounded-xl py-2.5 px-3.5 shadow-(--shadow-md) flex items-center gap-2.5 -rotate-3">
+              <div className="hero-live-badge absolute -left-4 top-7.5 bg-white border border-(--border) rounded-xl py-2.5 px-3.5 shadow-(--shadow-md) flex items-center gap-2.5 animate-float-hero-notify">
                 <span className="size-2 rounded-full bg-(--green-600) shadow-[0_0_0_4px_#bbf7d0] block" />
                 <div>
                   <div className="text-[11px] font-bold leading-[1.1]">

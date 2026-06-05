@@ -57,6 +57,7 @@ export default function Problems({ lang }: ProblemsProps) {
           {items.map(({ Icon, titleId, titleEn, bodyId, bodyEn }, i) => (
             <div
               key={i}
+              className="animate-angry-shake"
               style={{
                 background: '#fff',
                 border: '1px solid var(--border)',
@@ -64,6 +65,7 @@ export default function Problems({ lang }: ProblemsProps) {
                 padding: '28px 24px',
                 position: 'relative',
                 overflow: 'hidden',
+                animationDelay: `${i * 1.8}s`,
               }}
             >
               {/* Red top stripe */}
