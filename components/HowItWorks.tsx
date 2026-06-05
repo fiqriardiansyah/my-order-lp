@@ -62,9 +62,9 @@ const restaurantSteps: Step[] = [
     titleId: "Kasir tutup tagihan dalam detik",
     titleEn: "Cashier closes in seconds",
     bodyId:
-      "Bayar via QRIS atau tunai, struk langsung dikirim ke WhatsApp pelanggan.",
+      "Struk langsung terbit dan bisa di print",
     bodyEn:
-      "Pay via QRIS or cash, receipt sent straight to the customer's WhatsApp.",
+      "Receipt is publish and printed",
   },
 ];
 
@@ -276,7 +276,6 @@ export default function HowItWorks({ lang, rhythm }: HowItWorksProps) {
               }}
             >
               {[
-                "QRIS",
                 "WhatsApp",
                 lang === "id" ? "Bahasa Indonesia" : "Full Indonesian",
               ].map((badge) => (

@@ -876,7 +876,7 @@ function SignupContent() {
 
         <div style={{ display: "flex", gap: 40, marginTop: 40 }}>
           {[
-            { value: "200+", label: "restoran aktif" },
+            { value: "50+", label: "restoran aktif" },
             { value: "2.4x", label: "tabel turnover" },
             { value: "4.9", label: "rating rata-rata" },
           ].map((stat) => (

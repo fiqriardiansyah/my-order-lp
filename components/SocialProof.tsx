@@ -53,8 +53,8 @@ export default function SocialProof({ lang, rhythm }: SocialProofProps) {
         >
           <p className="shout" style={{ color: "var(--fg-muted)", margin: 0 }}>
             {lang === "id"
-              ? "Dipercaya oleh 200+ restoran dan kafe di Indonesia"
-              : "Trusted by 200+ restaurants & cafes across Indonesia"}
+              ? "Dipercaya oleh 50+ restoran dan kafe di Indonesia"
+              : "Trusted by 50+ restaurants & cafes across Indonesia"}
           </p>
           <div
             style={{

@@ -94,7 +94,7 @@ export default function Testimonials({ lang, rhythm }: TestimonialsProps) {
           <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
             {[
               {
-                value: "200+",
+                value: "50+",
                 labelId: "restoran aktif",
                 labelEn: "active venues",
               },

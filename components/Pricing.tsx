@@ -190,8 +190,11 @@ const tiers: Tier[] = [
 
 export default function Pricing({ lang, rhythm }: PricingProps) {
   return (
-    <section className={`section${rhythm ? ' bg-cream' : ''}`} id="pricing">
-      <div className="container">
+    <section className={`section relative${rhythm ? ' pricing-bg-section' : ''}`} id="pricing">
+      {rhythm && (
+        <div aria-hidden className="absolute inset-0 pointer-events-none pricing-overlay" />
+      )}
+      <div className="container relative">
         <div className="text-center max-w-[680px] mx-auto mb-14">
           <div className="eyebrow justify-center mb-4">
             <span className="dot" />

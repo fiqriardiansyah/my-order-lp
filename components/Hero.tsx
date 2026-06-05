@@ -22,27 +22,27 @@ const trustItems = {
 export default function Hero({ lang }: HeroProps) {
   return (
     <section id="top" className="hero-section">
+      {/* Dark gradient overlay — left-heavy so text stays readable */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none hero-overlay" />
+
+      {/* Subtle brand glow on top-left */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 75% 55% at 65% 0%, var(--brand-soft) 0%, transparent 65%)",
+            "radial-gradient(ellipse 55% 45% at 10% 0%, rgba(250,172,104,0.12) 0%, transparent 65%)",
         }}
       />
 
       <div className="container relative">
         <div className="hero-grid">
-          <div className="text-center max-w-180 mx-auto">
-            {/* 30-minute badge */}
+          {/* Left column: text content */}
+          <div className="text-center lg:text-left">
+            {/* Badge */}
             <div
-              className="inline-flex items-center gap-2 mb-6 px-4 rounded-full text-[13px] font-semibold"
-              style={{
-                padding: "6px 16px",
-                background: "var(--brand-soft)",
-                border: "1px solid rgba(250,172,104,0.4)",
-                color: "var(--brand-deep)",
-              }}
+              className="inline-flex items-center gap-2 mb-6 rounded-full text-[13px] font-semibold hero-badge"
+              style={{ padding: "6px 16px" }}
             >
               <Zap size={13} fill="currentColor" />
               {lang === "id"
@@ -64,13 +64,13 @@ export default function Hero({ lang }: HeroProps) {
               )}
             </h1>
 
-            <p className="lede mt-5.5 mx-auto sm:max-w-140">
+            <p className="lede mt-5.5 mx-auto sm:max-w-140 lg:mx-0">
               {lang === "id"
                 ? "Pelanggan scan QR, lihat menu, dan langsung pesan sendiri. Dapur terima pesanan saat itu juga — nggak perlu alat mahal, nggak perlu kontrak."
                 : "Guests scan QR, browse the menu, and order themselves. Kitchen gets orders instantly — no expensive hardware, no contracts."}
             </p>
 
-            <div className="flex flex-col items-stretch gap-3 mt-8 sm:flex-row sm:flex-wrap sm:justify-center sm:items-center">
+            <div className="flex flex-col items-stretch gap-3 mt-8 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start sm:items-center">
               <a
                 href="/signup"
                 className="btn btn-primary btn-lg justify-center"
@@ -79,7 +79,7 @@ export default function Hero({ lang }: HeroProps) {
                 <ArrowRight size={16} />
               </a>
               <button
-                className="btn btn-secondary btn-lg"
+                className="btn hero-btn-glass btn-lg"
                 onClick={() =>
                   window.Calendly?.initPopupWidget({
                     url: "https://calendly.com/fiqriardiansyah/demo-kasigo",
@@ -92,16 +92,16 @@ export default function Hero({ lang }: HeroProps) {
             </div>
 
             {/* Trust row */}
-            <div className="flex items-center justify-center gap-5 mt-6 flex-wrap">
+            <div className="flex items-center justify-center lg:justify-start gap-5 mt-6 flex-wrap">
               {trustItems[lang].map((label) => (
                 <div
                   key={label}
-                  className="flex items-center gap-[6px] text-[13px] text-(--fg-muted)"
+                  className="flex items-center gap-[6px] text-[13px] hero-trust-item"
                 >
                   <CheckCircle2
                     size={14}
                     className="shrink-0"
-                    style={{ color: "var(--accent)" }}
+                    style={{ color: "var(--brand)" }}
                   />
                   {label}
                 </div>
@@ -109,7 +109,7 @@ export default function Hero({ lang }: HeroProps) {
             </div>
           </div>
 
-          {/* Mockups */}
+          {/* Right column: Mockups */}
           <div className="hero-mock-wrap hidden sm:block">
             <div className="hero-mock-inner relative max-w-140 mx-auto">
               <DashboardMockup />

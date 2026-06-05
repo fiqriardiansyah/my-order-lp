@@ -106,8 +106,8 @@ export default function FinalCTA({ lang }: FinalCTAProps) {
                   }}
                 >
                   {lang === "id"
-                    ? "Setup gratis, siap dalam 5 menit. Tim kami bantu kamu setup menu pertama — lengkap dengan QRIS dan WhatsApp."
-                    : "Free setup, ready in 5 minutes. We help with your first menu — QRIS and WhatsApp included."}
+                    ? "Setup gratis, siap dalam 5 menit. Tim kami bantu kamu setup menu pertama."
+                    : "Free setup, ready in 5 minutes. We help with your first menu."}
                 </p>
 
                 {/* Inline trust row */}
@@ -122,12 +122,10 @@ export default function FinalCTA({ lang }: FinalCTAProps) {
                   {(lang === "id"
                     ? [
                         "✓ Gratis selamanya",
-                        "✓ QRIS & WhatsApp",
                         "✓ Tim support aktif",
                       ]
                     : [
                         "✓ Forever free tier",
-                        "✓ QRIS & WhatsApp",
                         "✓ Active support",
                       ]
                   ).map((t) => (
