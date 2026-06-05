@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://kasigo.online/sitemap.xml',
+    sitemap: 'https://kasigo.id/sitemap.xml',
   };
 }

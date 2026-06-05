@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Kasigo" }],
   creator: "Kasigo",
-  metadataBase: new URL("https://kasigo.online"),
+  metadataBase: new URL("https://kasigo.id"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Kasigo — Aplikasi Manajemen Restoran & Kafe",
     description: "Kelola meja, pesanan, dapur, dan kasir dalam satu aplikasi.",
-    url: "https://kasigo.online",
+    url: "https://kasigo.id",
     siteName: "Kasigo",
     images: [
       {
@@ -69,7 +69,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description: "Aplikasi manajemen restoran dan kafe dengan QR ordering.",
-  url: "https://kasigo.online",
+  url: "https://kasigo.id",
   offers: {
     "@type": "Offer",
     price: "0",
