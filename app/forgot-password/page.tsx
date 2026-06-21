@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Mail, ArrowLeft, Loader2, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { forgotPassword } from "@/lib/auth";
+import { useLoading } from "@/components/LoadingProvider";
 
 const schema = z.object({
   email: z.string().email("Format email tidak valid"),
@@ -17,6 +18,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function ForgotPasswordPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const { setLoading } = useLoading();
 
   const {
     register,
@@ -26,6 +28,10 @@ export default function ForgotPasswordPage() {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
+
+  useEffect(() => {
+    setLoading(isSubmitting);
+  }, [isSubmitting, setLoading]);
 
   async function onSubmit(values: FormValues) {
     try {

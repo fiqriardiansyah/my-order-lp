@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Mail, Lock, Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { login } from "@/lib/auth";
+import { useLoading } from "@/components/LoadingProvider";
 
 const schema = z.object({
   email: z.string().email("Format email tidak valid"),
@@ -21,6 +22,7 @@ type FormValues = z.infer<typeof schema>;
 function SigninForm() {
   const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
+  const { setLoading } = useLoading();
 
   const {
     register,
@@ -31,6 +33,10 @@ function SigninForm() {
     mode: "onChange",
     defaultValues: { email: searchParams.get("email") ?? "", remember: false },
   });
+
+  useEffect(() => {
+    setLoading(isSubmitting);
+  }, [isSubmitting, setLoading]);
 
   async function onSubmit(values: FormValues) {
     try {

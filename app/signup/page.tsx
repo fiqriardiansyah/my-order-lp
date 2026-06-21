@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import { signup } from "@/lib/auth";
 import { MailCheck } from "lucide-react";
+import { useLoading } from "@/components/LoadingProvider";
 
 const PLAN_INFO = {
   warung: {
@@ -247,6 +248,8 @@ function SignupContent() {
   const [slugEdited, setSlugEdited] = useState(false);
   const [confirmed, setConfirmed] = useState<{ email: string; message: string } | null>(null);
 
+  const { setLoading } = useLoading();
+
   const {
     register,
     handleSubmit,
@@ -258,6 +261,10 @@ function SignupContent() {
     resolver: zodResolver(schema),
     defaultValues: { agreed: false, restaurantSlug: "" },
   });
+
+  useEffect(() => {
+    setLoading(isSubmitting);
+  }, [isSubmitting, setLoading]);
 
   const watchedRestaurantName = useWatch({
     control,
