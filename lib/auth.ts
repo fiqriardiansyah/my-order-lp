@@ -56,6 +56,7 @@ export async function signup(
   restaurantName: string,
   restaurantSlug: string,
   plan?: string,
+  referralCode?: string,
 ): Promise<SignupResult> {
   const res = await fetch(SIGN_URL, {
     method: "POST",
@@ -68,6 +69,7 @@ export async function signup(
       restaurantName,
       restaurantSlug,
       ...(plan ? { plan } : {}),
+      ...(referralCode ? { referralCode: referralCode } : {}),
     }),
   });
 
