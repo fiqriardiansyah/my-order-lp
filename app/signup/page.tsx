@@ -17,6 +17,7 @@ import {
   Store,
   Link2,
   Loader2,
+  Gift,
 } from "lucide-react";
 import Link from "next/link";
 import { signup } from "@/lib/auth";
@@ -46,6 +47,7 @@ const schema = z
     confirmPassword: z.string(),
     restaurantName: z.string().min(1, "Nama restoran wajib diisi"),
     restaurantSlug: z.string().min(1, "URL restoran wajib diisi"),
+    referralCode: z.string().optional(),
     agreed: z.boolean().refine((v) => v === true, {
       message: "Kamu harus menyetujui syarat & ketentuan",
     }),
@@ -299,6 +301,7 @@ function SignupContent() {
         values.restaurantName,
         values.restaurantSlug,
         planId || undefined,
+        values.referralCode || undefined,
       );
       if (result.requiresConfirmation) {
         setConfirmed({ email: values.email, message: result.message });
@@ -712,10 +715,30 @@ function SignupContent() {
                       </span>
                     </p>
                   )}
-                  {errors.restaurantSlug && (
-                    <FieldError>{errors.restaurantSlug.message}</FieldError>
-                  )}
                 </div>
+              </div>
+            </div>
+
+            {/* Referral code */}
+            <div style={{ marginTop: 20 }}>
+              <label style={labelStyle}>
+                Kode referral{" "}
+                <span style={{ fontWeight: 400, color: "var(--fg-subtle)" }}>(opsional)</span>
+              </label>
+              <div style={inputWrapStyle}>
+                <span style={iconWrapStyle}>
+                  <Gift size={15} />
+                </span>
+                <input
+                  {...register("referralCode", {
+                    onChange: (e) => {
+                      e.target.value = e.target.value.toUpperCase();
+                    },
+                  })}
+                  type="text"
+                  placeholder="Masukkan kode referral"
+                  style={{ ...inputStyle, textTransform: "uppercase" }}
+                />
               </div>
             </div>
 
@@ -774,6 +797,10 @@ function SignupContent() {
                 </>
               )}
             </button>
+
+            {errors.restaurantSlug && (
+              <FieldError>{errors.restaurantSlug.message}</FieldError>
+            )}
 
             <p
               style={{
