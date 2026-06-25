@@ -202,7 +202,9 @@ function SigninForm() {
         <p className="text-center text-[13px] text-[var(--fg-muted)] mt-6">
           Butuh bantuan?{" "}
           <a
-            href="#"
+            href="https://wa.me/6285273580367"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-bold text-[var(--fg)] hover:text-[var(--accent)] transition-colors duration-150"
           >
             Hubungi support
